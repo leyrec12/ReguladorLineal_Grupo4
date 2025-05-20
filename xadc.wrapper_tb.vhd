@@ -18,18 +18,8 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity xadc_wrapper_tb is
 --  Port ( );
@@ -37,11 +27,12 @@ end xadc_wrapper_tb;
 
 architecture Behavioral of xadc_wrapper_tb is
 --Señales en las que luego genero estímulos
-    constant CLK_PERIOD : time := 8 ns;
-    signal clk, rst, start : std_logic;
-    signal vaux1_n, vaux1_p, vaux9_n, vaux9_p: std_logic;
-    signal segmentos : std_logic_vector(6 downto 0);
-    signal selector : std_logic_vector(3 downto 0);
+    constant CLK_PERIOD     : time := 8 ns;
+    signal clk, rst, start  : std_logic;
+    signal vaux1_n, vaux1_p : std_logic;
+    signal vaux9_n, vaux9_p : std_logic;
+    signal segmentos        : std_logic_vector(6 downto 0);
+    signal selector         : std_logic_vector(3 downto 0);
 
 begin
 
@@ -54,8 +45,8 @@ begin
         clk         => clk,
         rst         => rst,
         start       => start,
-        segmentos  => segmentos,
-        selector   => selector
+        segmentos   => segmentos,
+        selector    => selector
     );
 
 --Señal del reloj
@@ -86,7 +77,5 @@ begin
         start <= '0';
         wait;
     end process;
-
-    
 
 end Behavioral;

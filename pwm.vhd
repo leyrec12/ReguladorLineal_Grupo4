@@ -18,18 +18,9 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity pwm is
   Port ( 
@@ -54,19 +45,19 @@ begin
             pwm_counter <= 0;
             duty_threshold <= 0;
         elsif (clk'event and clk = '1') then
-            -- Actualizción del contador
+            -- ActualizciÃ³n del contador
             if pwm_counter < pwm_period - 1 then
                 pwm_counter <= pwm_counter + 1;
             else
                 pwm_counter <= 0;
             end if;
             
-            -- Cálculo del umbral de comparación
+            -- CÃ¡lculo del umbral de comparaciÃ³n
             duty_threshold <= duty_cycle * step_size;
         end if;
     end process;    
     
-    -- Asignación de salida PWM
+    -- AsignaciÃ³n de salida PWM
     pwm_out <= '1' when pwm_counter < duty_threshold else '0';
     
 end Behavioral;

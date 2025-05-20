@@ -18,7 +18,6 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -36,20 +35,20 @@ end mult;
 
 architecture Behavioral of mult is
     type State_t is (IDLE, MULT_1, MULT_2);
-    signal STATE : State_t;
-    signal Acc : unsigned(12 downto 0);
-    signal A   : unsigned(12 downto 0);   --multiplicando (V)
-    signal Q   : unsigned(12 downto 0);   --multiplicador (I)
-    signal Q1 : std_logic := '0';
-    constant n_max :integer:=13;
-    signal n : integer range 0 to n_max := 0; -- cuenta hasta el numero de bits+1
-    constant m_max :integer:=2;
-    signal m : integer range 0 to m_max := 0; -- cuenta las 3 operaciones de cada ciclo
-    constant v_max : integer:=1;
-    signal v : integer range 0 to v_max;
-    signal cond : std_logic_vector(1 downto 0):= "00";
-    signal result_int : std_logic_vector(25 downto 0);
-    constant K : unsigned(12 downto 0) := "0001010011011";
+    signal STATE        : State_t;
+    signal Acc          : unsigned(12 downto 0);
+    signal A            : unsigned(12 downto 0);   --multiplicando (V)
+    signal Q            : unsigned(12 downto 0);   --multiplicador (I)
+    signal Q1           : std_logic := '0';
+    constant n_max      : integer:=13;
+    signal n            : integer range 0 to n_max := 0;   -- cuenta hasta el numero de bits+1
+    constant m_max      : integer:=2;
+    signal m            : integer range 0 to m_max := 0;   -- cuenta las 3 operaciones de cada ciclo
+    constant v_max      : integer:=1;
+    signal v            : integer range 0 to v_max;
+    signal cond         : std_logic_vector(1 downto 0):= "00";
+    signal result_int   : std_logic_vector(25 downto 0);
+    constant K          : unsigned(12 downto 0) := "0001010011011";
 
 begin
     process(clk, reset)
@@ -66,11 +65,9 @@ begin
             cond <= "00";
             result_int <= (others => '0');
         elsif (clk'event and clk = '1') then
-            
             case STATE is
             
                 when IDLE =>
-                
                     if entrada_tipo = "01" then
                         A <= unsigned("0" & entrada);
                     elsif entrada_tipo = "10" then
@@ -138,13 +135,10 @@ begin
                 when others =>
                     STATE <= IDLE;
             end case;
-                
-            
-            
         end if;
     end process;
     
     resultado <= std_logic_vector(Acc & Q(12)) when v=v_max and n=n_max else (others => '0') ;
     terminado <= '1' when v=v_max and n=n_max else '0';
+    
 end Behavioral;
-
